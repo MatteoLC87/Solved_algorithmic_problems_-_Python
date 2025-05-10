@@ -102,8 +102,8 @@ class Sudoku:
                     print(sudoku[i][j])
                 printed_cells += 1
         print(f'iterations: {self.iterations}')  
-        return self
-        
+
+
 def sudoku_solver(sudoku):
     Sudoku(sudoku).solver().printer()
 
