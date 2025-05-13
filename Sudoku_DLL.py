@@ -1,39 +1,47 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Fri May  9 18:49:10 2025
+
+@author: matte
+"""
+
 import time
 
 start = time.time()
 
-r1 = list(range(3))
-r2 = list(range(3,6))
-r3 = list(range(6,9))
+class Helper:
+    def __init__(self):  
+        r1 = list(range(3))
+        r2 = list(range(3,6))
+        r3 = list(range(6,9))
+        self.index_map = [[[x,y]for y in range(9)]for x in range(9)]
+        for lists in self.index_map: 
+            for element in lists:         
+                if element[0] in r1:
+                    element[0] = r1[:]
+                elif element[0] in r2:
+                    element[0] = r2[:]
+                else:
+                    element[0] = r3[:]
+                if element[1] in r1:
+                    element[1] = r1[:]
+                elif element[1] in r2:
+                    element[1] = r2[:]
+                else:
+                    element[1] = r3[:]
 
-index_map = [[[x,y]for y in range(9)]for x in range(9)]
-for lists in index_map: 
-    for element in lists:         
-        if element[0] in r1:
-            element[0] = r1[:]
-        elif element[0] in r2:
-            element[0] = r2[:]
-        else:
-            element[0] = r3[:]
-        if element[1] in r1:
-            element[1] = r1[:]
-        elif element[1] in r2:
-            element[1] = r2[:]
-        else:
-            element[1] = r3[:]
-
-def check(n,i,j):       
-    for x in index_map[i][j][0]:
-        for y in index_map[i][j][1]:
-            if sudoku[x][y] == n:
-                return False               
-    for x in range(0,9):
-        if sudoku[x][j] == n:
-            return False                             
-    for y in range(0,9):
-        if sudoku[i][y] == n:
-            return False                 
-    return True
+    def is_safe(self, n,i,j):       
+        for x in self.index_map[i][j][0]:
+            for y in self.index_map[i][j][1]:
+                if sudoku[x][y] == n:
+                    return False               
+        for x in range(0,9):
+            if sudoku[x][j] == n:
+                return False                             
+        for y in range(0,9):
+            if sudoku[i][y] == n:
+                return False                 
+        return True
 
 
 class Node:
@@ -63,12 +71,14 @@ class DoublyLinkedList:
     
     
 class Sudoku:
-    def __init__(self, sudoku):
+    def __init__(self, sudoku_matrix):
+        self.helper = Helper()
+        self.sudoku_matrix = sudoku_matrix
         self.sudoku_DLL = DoublyLinkedList()
         for i in range(0,9):        
             for j in range(0,9):            
-                if not sudoku[i][j]:
-                    self.sudoku_DLL.append(sudoku[i][j], [i, j])
+                if not sudoku_matrix[i][j]:
+                    self.sudoku_DLL.append(sudoku_matrix[i][j], [i, j])
         self.iterations = 0
                     
     def solver(self):
@@ -80,12 +90,12 @@ class Sudoku:
                 current_node.value += 1
             if current_node.value == 10:
                 current_node.value = 0
-                sudoku[i][j] = current_node.value
+                self.sudoku_matrix[i][j] = current_node.value
                 current_node = current_node.previous
                 if not current_node:
                     raise Exception(f'no solution\niterations: {self.iterations}')
-            elif check(current_node.value,i,j):
-                sudoku[i][j] = current_node.value
+            elif self.helper.is_safe(current_node.value,i,j):
+                self.sudoku_matrix[i][j] = current_node.value
                 current_node = current_node.next
             else:
                 current_node.value += 1
@@ -97,16 +107,18 @@ class Sudoku:
         for i in range(0,9):        
             for j in range(0,9):  
                 if printed_cells%9:
-                    print(sudoku[i][j], end = " ")
+                    print(self.sudoku_matrix[i][j], end = " ")
                 else:
-                    print(sudoku[i][j])
+                    print(self.sudoku_matrix[i][j])
                 printed_cells += 1
         print(f'iterations: {self.iterations}')  
         return self
-
-def sudoku_solver(sudoku):
-    Sudoku(sudoku).solver().printer()
-
+    
+    
+    def get_solution(self):
+        self.solver().printer()
+        return self
+       
 
 sudoku = [[8, 0, 0, 0, 0, 0, 0, 0, 0],
           [0, 0, 3, 6, 0, 0, 0, 0, 0],
@@ -118,8 +130,8 @@ sudoku = [[8, 0, 0, 0, 0, 0, 0, 0, 0],
           [0, 0, 8, 5, 0, 0, 0, 1, 0],
           [0, 9, 0, 0, 0, 0, 4, 0, 0]]
 
-sudoku_solver(sudoku)                    
-
+Sudoku(sudoku).get_solution()
+           
 end = time.time() 
 
 print(f"time: {round(end-start, 2)} s")
