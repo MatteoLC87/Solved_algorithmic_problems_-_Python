@@ -75,7 +75,7 @@ class Sudoku:
                 current_node = current_node.previous
                 if not current_node:
                     raise Exception(f'no solution\niterations: {self.iterations}')
-            elif self.helper.is_safe(current_node.value,i,j):
+            elif self.helper.is_safe(current_node.value, i, j):
                 self.sudoku_matrix[i][j] = current_node.value
                 current_node = current_node.next
             else:
