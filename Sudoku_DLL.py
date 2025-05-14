@@ -4,7 +4,7 @@ start = time.time()
 
 class Helper:
     def __init__(self):
-        self.index_range_matrix = [[[list(range(3 * (i // 3), 3 * (i // 3) + 3)), list(range(3 * (j // 3), 3 * (j // 3) + 3))]for j in range(9)]for i in range(9)]
+        self.index_range_matrix = [[[list(range(i // 3 * 3, i // 3 * 3 + 3)), list(range(j // 3 * 3, j // 3 * 3 + 3))]for j in range(9)]for i in range(9)]
        
     def is_safe(self, n, i, j):       
         for x in self.index_range_matrix[i][j][0]:
