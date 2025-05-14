@@ -1,27 +1,22 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Fri May  9 18:49:10 2025
+
+@author: matte
+"""
+
 import time
 
 start = time.time()
 
 class Helper:
     def __init__(self):  
-        r1 = list(range(3))
-        r2 = list(range(3,6))
-        r3 = list(range(6,9))
-        self.index_map = [[[x,y]for y in range(9)]for x in range(9)]
-        for lists in self.index_map: 
-            for element in lists:         
-                if element[0] in r1:
-                    element[0] = r1[:]
-                elif element[0] in r2:
-                    element[0] = r2[:]
-                else:
-                    element[0] = r3[:]
-                if element[1] in r1:
-                    element[1] = r1[:]
-                elif element[1] in r2:
-                    element[1] = r2[:]
-                else:
-                    element[1] = r3[:]
+        r1, r2, r3 = list(range(3)), list(range(3,6)), list(range(6,9))
+        self.index_map = [[[i,j]for j in range(9)]for i in range(9)]
+        for row in self.index_map: 
+            for col in row:
+                for i in range(2):
+                    col[i] = r1 if col[i] in r1 else r2 if col[i] in r2 else r3
 
     def is_safe(self, n,i,j):       
         for x in self.index_map[i][j][0]:
