@@ -1,19 +1,21 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Fri May  9 18:49:10 2025
+
+@author: matte
+"""
+
 import time
 
 start = time.time()
 
 class Helper:
-    def __init__(self):  
-        r1, r2, r3 = list(range(3)), list(range(3, 6)), list(range(6, 9))
-        self.index_map = [[[i,j]for j in range(9)]for i in range(9)]
-        for row in self.index_map: 
-            for col in row:
-                for i in range(2):
-                    col[i] = r1 if col[i] in r1 else r2 if col[i] in r2 else r3
-
+    def __init__(self):
+        self.index_range_matrix = [[[list(range(3 * (i // 3), 3 * (i // 3) + 3)), list(range(3 * (j // 3), 3 * (j // 3) + 3))]for j in range(9)]for i in range(9)]
+       
     def is_safe(self, n, i, j):       
-        for x in self.index_map[i][j][0]:
-            for y in self.index_map[i][j][1]:
+        for x in self.index_range_matrix[i][j][0]:
+            for y in self.index_range_matrix[i][j][1]:
                 if sudoku[x][y] == n:
                     return False               
         for x in range(0, 9):
