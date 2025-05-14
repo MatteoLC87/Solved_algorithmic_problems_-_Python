@@ -1,10 +1,17 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Fri May  9 18:49:10 2025
+
+@author: matte
+"""
+
 import time
 
 start = time.time()
 
 class Helper:
     def __init__(self):  
-        r1, r2, r3 = list(range(3)), list(range(3,6)), list(range(6,9))
+        r1, r2, r3 = list(range(3)), list(range(3, 6)), list(range(6, 9))
         self.index_map = [[[i,j]for j in range(9)]for i in range(9)]
         for row in self.index_map: 
             for col in row:
@@ -16,10 +23,10 @@ class Helper:
             for y in self.index_map[i][j][1]:
                 if sudoku[x][y] == n:
                     return False               
-        for x in range(0,9):
+        for x in range(0, 9):
             if sudoku[x][j] == n:
                 return False                             
-        for y in range(0,9):
+        for y in range(0, 9):
             if sudoku[i][y] == n:
                 return False                 
         return True
@@ -56,8 +63,8 @@ class Sudoku:
         self.helper = Helper()
         self.sudoku_matrix = sudoku_matrix
         self.sudoku_DLL = DoublyLinkedList()
-        for i in range(0,9):        
-            for j in range(0,9):            
+        for i in range(0, 9):        
+            for j in range(0, 9):            
                 if not sudoku_matrix[i][j]:
                     self.sudoku_DLL.append(sudoku_matrix[i][j], [i, j])
         self.iterations = 0
@@ -84,8 +91,8 @@ class Sudoku:
     
     def printer(self):
         print("solution:")
-        for i in range(0,9):        
-            for j in range(0,9):  
+        for i in range(0, 9):        
+            for j in range(0, 9):  
                 if j != 8:
                     print(self.sudoku_matrix[i][j], end = " ")
                 else:
