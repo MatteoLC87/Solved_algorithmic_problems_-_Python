@@ -1,10 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Fri May  9 18:49:10 2025
-
-@author: matte
-"""
-
 import time
 
 start = time.time()
