@@ -11,7 +11,7 @@ class Helper:
                 for i in range(2):
                     col[i] = r1 if col[i] in r1 else r2 if col[i] in r2 else r3
 
-    def is_safe(self, n,i,j):       
+    def is_safe(self, n, i, j):       
         for x in self.index_map[i][j][0]:
             for y in self.index_map[i][j][1]:
                 if sudoku[x][y] == n:
