@@ -68,7 +68,7 @@ class Sudoku:
             self.iterations += 1
             i, j = current_node._9x9_position[0], current_node._9x9_position[1]
             if not current_node.value:
-                current_node.value += 1
+                current_node.value = 1
             if current_node.value == 10:
                 current_node.value = 0
                 self.sudoku_matrix[i][j] = current_node.value
