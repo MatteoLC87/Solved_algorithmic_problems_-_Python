@@ -81,10 +81,9 @@ class Sudoku:
         print("solution:")
         for i in range(0, 9):        
             for j in range(0, 9):  
-                if j != 8:
-                    print(self.sudoku_matrix[i][j], end = " ")
-                else:
-                    print(self.sudoku_matrix[i][j])       
+                print(self.sudoku_matrix[i][j], end = " ")
+                if j == 8:
+                    print()      
         print(f'iterations: {self.iterations}')  
         return self
     
