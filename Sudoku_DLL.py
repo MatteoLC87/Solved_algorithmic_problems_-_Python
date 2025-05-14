@@ -1,3 +1,10 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Fri May  9 18:49:10 2025
+
+@author: matte
+"""
+
 import time
 
 start = time.time()
@@ -61,6 +68,7 @@ class Sudoku:
         current_node = self.sudoku_DLL.head
         while current_node:
             self.iterations += 1
+            current_node.value += 1
             i, j = current_node._9x9_position[0], current_node._9x9_position[1]
             if not current_node.value:
                 current_node.value = 1
@@ -69,12 +77,10 @@ class Sudoku:
                 self.sudoku_matrix[i][j] = current_node.value
                 current_node = current_node.previous
                 if not current_node:
-                    raise Exception(f'no solution\niterations: {self.iterations}')
+                    raise Exception(f'no solution\niterations: {self.iterations}')     
             elif self.helper.is_safe(current_node.value, i, j):
                 self.sudoku_matrix[i][j] = current_node.value
-                current_node = current_node.next
-            else:
-                current_node.value += 1
+                current_node = current_node.next   
         return self
     
     def printer(self):
@@ -83,7 +89,7 @@ class Sudoku:
             for j in range(0, 9):  
                 print(self.sudoku_matrix[i][j], end = " ")
                 if j == 8:
-                    print()      
+                    print()
         print(f'iterations: {self.iterations}')  
         return self
     
