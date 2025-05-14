@@ -1,3 +1,10 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Fri May  9 18:49:10 2025
+
+@author: matte
+"""
+
 import time
 
 start = time.time()
@@ -84,14 +91,12 @@ class Sudoku:
     
     def printer(self):
         print("solution:")
-        printed_cells = 1
         for i in range(0,9):        
             for j in range(0,9):  
-                if printed_cells%9:
+                if j != 8:
                     print(self.sudoku_matrix[i][j], end = " ")
                 else:
-                    print(self.sudoku_matrix[i][j])
-                printed_cells += 1
+                    print(self.sudoku_matrix[i][j])       
         print(f'iterations: {self.iterations}')  
         return self
     
